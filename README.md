@@ -106,3 +106,67 @@ public class Calculator{
     }
 
 }
+
+public class Operations extends Calculator {
+    Input in = new Input();
+
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        Scanner sc = new Scanner(System.in);
+        double no[] = new double[2];
+        System.out.println("Enter 2 Numbers");
+        no[0] = sc.nextDouble();
+        no[1] = sc.nextDouble();
+
+        double[] NumsOps;
+        Calculator calc = new Calculator();
+        //Scanner sc = new Scanner(System.in);
+        int option = 0;
+        System.out.println("------------- Operations-----");
+        System.out.println("1. Addition");
+        System.out.println("2. Subtraction");
+        System.out.println("3. Mean");
+        System.out.println("4. Variance");
+        System.out.println("5. Multiplication");
+        System.out.println("6. Division");
+        System.out.println("7. Power");
+        System.out.println("8. Square Root");
+        System.out.println("Enter option (1 to 8) for operation");
+        option = sc.nextInt();
+
+        switch (option) {
+            case 1:
+                System.out.println("Addition is " +
+                        calc.add(no[0], no[1]));
+                break;
+            case 2:
+                System.out.println("Subtraction is " +
+                        calc.subtract(no[0], no[1]));
+                break;
+
+            case 3:
+                System.out.println("Mean is " + calc.mean());
+                break;
+
+            case 4:
+                System.out.println("Variance is " + calc.variance());
+                break;
+            case 5:
+                System.out.println("Multiplication is " + calc.multiply(no[0], no[1]));
+                break;
+
+            case 6:
+                System.out.println("Division is " + calc.divide(no[0], no[1]));
+                break;
+
+            case 7:
+                System.out.println("Exponent is " + calc.power(no[0], no[1]));
+                break;
+
+            case 8:
+                System.out.println("Square Root is " + calc.squareRoot(no[0]));
+
+        }
+
+
+    }
