@@ -170,3 +170,145 @@ public class Operations extends Calculator {
 
 
     }
+    
+ public class InputMethods {
+    public static long calculateFactorial(int n) {
+        if (n < 0) {
+            throw new IllegalArgumentException("Factorial is not defined for negative numbers");
+        }
+        long factorial = 1;
+        for (int i = 1; i <= n; i++) {
+            factorial *= i;
+        }
+        return factorial;
+    }
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        DataInputStream dataInputStream = new DataInputStream(System.in);
+
+        while (true) {
+            System.out.println("Choose an input method:");
+            System.out.println("1. Command Line Arguments");
+            System.out.println("2. Scanner");
+            System.out.println("3. BufferedReader");
+            System.out.println("4. DataInputStream");
+            System.out.println("5. Console");
+            System.out.println("6. Exit");
+            System.out.print("Enter your choice: ");
+
+            int choice;
+            try {
+                choice = Integer.parseInt(reader.readLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid choice. Please enter a number.");
+                continue;
+            }
+
+            switch (choice) {
+                case 1:
+                    commandLineArgs(args);
+                    break;
+                case 2:
+                    scannerInput();
+                    break;
+                case 3:
+                    bufferedReaderInput();
+                    break;
+                case 4:
+                    dataInputStreamInput();
+                    break;
+                case 5:
+                    consoleInput();
+                    break;
+                case 6:
+                    System.out.println("Exiting program...");
+                    return;
+                default:
+                    System.out.println("Invalid choice. Please enter a number between 1 and 6.");
+            }
+        }
+    }
+
+    private static void commandLineArgs(String[] args) {
+        System.out.println("Command Line Arguments:");
+        if (args.length != 1) {
+            System.out.println("Usage: java FactorialCalculator <number>");
+            System.exit(1);
+        }
+
+        int number = Integer.parseInt(args[0]);
+
+        long factorial = calculateFactorial(number);
+
+        System.out.println("The factorial of " + number + " is: " + factorial);
+    }
+
+    private static void scannerInput() {
+        // You can implement Scanner input here
+        System.out.println("Scanner input method");
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a number to compute its factorial: ");
+        int number = scanner.nextInt();
+
+        long factorial = calculateFactorial(number);
+
+        System.out.println("The factorial of " + number + " is: " + factorial);
+
+        scanner.close();
+    }
+
+    private static void bufferedReaderInput() throws IOException {
+        System.out.println("BufferedReader input method");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.print("Enter a number to compute its factorial: ");
+        int number = Integer.parseInt(reader.readLine());
+        long factorial = calculateFactorial(number);
+        System.out.println("The factorial of " + number + " is: " + factorial);
+        reader.close();
+
+    }
+
+    private static void dataInputStreamInput() throws IOException {
+        System.out.println("DataInputStream input method");
+        DataInputStream dis = new DataInputStream(System.in);
+
+        try {
+            System.out.print("Enter a number to compute its factorial: ");
+            int number = Integer.parseInt(dis.readLine());
+
+            long factorial = calculateFactorial(number);
+
+            System.out.println("The factorial of " + number + " is: " + factorial);
+        } catch (IOException | NumberFormatException e) {
+            System.out.println("Invalid input. Please enter a valid integer.");
+            e.printStackTrace();
+        } finally {
+            try {
+                dis.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private static void consoleInput() throws IOException{
+        // You can implement Console input here
+        System.out.println("Console input method");
+        Console console = System.console();
+        if (console == null) {
+            System.out.println("Console is not available");
+            System.exit(1);
+        }
+
+        String inputString = console.readLine("Enter a number to compute its factorial: ");
+        int number = Integer.parseInt(inputString);
+
+        long factorial = calculateFactorial(number);
+
+        console.printf("The factorial of %d is: %d%n", number, factorial);
+    }
+
+}
+
+
+}
