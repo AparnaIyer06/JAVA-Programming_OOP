@@ -312,3 +312,146 @@ public class Operations extends Calculator {
 
 
 }
+
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Arrays;
+public class Input {
+    public int[] inputData() {
+
+        Scanner sc = new Scanner(System.in); //Initialize Scanner Object
+        System.out.println("Enter size of an Array:");
+        int size = sc.nextInt(); //Size of the array taken from the user
+        int data[] = new int[size]; //Array is of this size
+        System.out.println("Enter data: ");
+        for (int i = 0; i < size; i++)
+            data[i] = sc.nextInt();
+        return data;
+    }
+}
+
+public class Assignment2 extends Input{
+    //Part 1: WAP that declares two arrays named even and odd. Accept numbers from the user.
+    // Move them to respective arrays depending on whether they are even or odd.
+
+    public void part1() {
+        Input input = new Input();
+        int data[] = new int[10];
+        data = input.inputData();
+        int len = data.length;
+        int[] evenArray = new int[len];
+        int[] oddArray = new int[len];
+        int evenCnt = 0, oddCnt = 0;
+        for (int i = 0; i < len; i++) {
+            if (data[i] % 2 == 0) {
+                evenArray[evenCnt] = data[i];
+                evenCnt++;
+            } else {
+                oddArray[oddCnt] = data[i];
+                oddCnt++;
+            }//else
+        }//for
+        System.out.println("Original Array");
+        for (int i = 0; i < data.length; i++)
+            System.out.println(data[i] + "\t");
+        System.out.println("Even Array");
+        for (int i = 0; i < evenCnt; i++)
+            System.out.println(evenArray[i] + "\t");
+        System.out.println("Odd Array");
+        for (int i = 0; i < oddCnt; i++)
+            System.out.println(oddArray[i] + "\t");
+    }//part1
+
+    //Part 2: Implement a JAVA Method that finds two neighbouring numbers in an array with the smallest distance to each.
+    // It should return the index of the 1st no.
+    public void part2() {
+        Input input = new Input();
+        int data[] = new int[10];
+        data = input.inputData();
+        int len = data.length;
+        int[] diff = new int[len]; //An array to store the differences between successive terms
+        for (int i = 0; i < len; i++) {
+            diff[i] = data[i + 1] - data[i]; //Create array diff
+        }//for
+        //Find the first smallest value in the array diff
+        int minVal; //Initialize a variable that stores the minimum difference.
+        for (int i = 0; i < len; i++) {
+            if (diff[i] > diff[i + 1])
+                minVal = diff[i + 1];
+            else
+                minVal = diff[i];
+        }
+        //Iterate through array diff to find the index of the minVal
+        for (int i = 0; i < len; i++) {
+            if (diff[i] == minVal) {
+                System.out.println("Index of first number for minimum difference: " + i);
+                System.out.println("Element at position" + i + data[i]); //Returns the element in the original array that is at the first position with min. difference
+            }
+        }
+    }
+
+    //Part 3: WAP to convert an array to an ArrayList and vice-versa.
+    public void part3()
+    {
+        //a. Convert an array into an ArrayList.
+        Scanner sc = new Scanner(System.in);
+        // Prompt the user to enter the number of elements
+        System.out.print("Enter the number of elements: ");
+        int numElements = sc.nextInt();
+
+        // Create the array to store the elements
+        int[] data = new int[numElements];
+        // Prompt the user to enter elements
+        System.out.println("Enter the elements:");
+        //Add elements to the array created
+        for (int i = 0; i < numElements; i++) {
+            System.out.print("Element " + (i + 1) + ": ");
+            data[i] = sc.nextInt();
+        }
+
+        // Convert array to ArrayList
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList=Arrays.asList(data);
+
+        // Display the elements of the ArrayList
+        System.out.println("Elements of the ArrayList:");
+        for (String element : arrayList) {
+            System.out.println(element);
+        }
+
+        // b. Convert an ArrayList into an array
+        Scanner sc = new Scanner(System.in);
+        // Create an ArrayList
+        ArrayList<String> al = new ArrayList<>();
+        int aLSize=arrayList.size();
+        // Add elements to the ArrayList
+        for(int i=1;i<aLSize+1;i++){
+            System.out.println("Enter ArrayList element "+i+":");
+            String element=sc.next();
+            al.add(element);
+        }
+        System.out.println("The original arraylist is "+al);
+        // Convert ArrayList to Array
+        String[] array = new String[arrayList.size()];
+        al.toArray(array);
+
+        // Display the elements of the array
+        System.out.println("Elements of the array:");
+        for (String element : array) {
+            System.out.println(element);
+    }
+    }
+
+
+}
+
+public class Main{
+    public static void main(String[] args)
+    {
+        Assignment2 assignment2=new Assignment2;
+        assignment2.part1();
+        assignment2.part2();
+        assignment2.part3();
+    }
+}
+
