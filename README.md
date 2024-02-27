@@ -801,3 +801,149 @@ public class Main {
     }
 }
 
+public class Assignment5_Part1 {
+    public static void main(String[] args){
+        Circle c=new Circle(7);
+        System.out.println("Area of circle is "+c.calculateArea());
+        System.out.println("Perimeter of circle is "+c.calculatePerimeter());
+
+        Rectangle r=new Rectangle(3,4);
+        System.out.println("Area of rectangle is  "+r.calculateArea());
+        System.out.println("Perimeter of rectangle is "+r.calculatePerimeter());
+
+        Triangle t=new Triangle(3,4,5,6);
+        System.out.println("Area of triangle is  "+t.calculateArea());
+        System.out.println("Perimeter of triangle is "+t.calculatePerimeter());
+
+
+    }
+}
+
+package Assignment5;
+import java.lang.*;
+//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+public interface Shapes {
+    public double calculateArea();
+    public double calculatePerimeter();
+
+    public double pi=3.14;
+    }
+
+public class Circle implements Assignment5.Shapes{
+    private int radius;
+    public Circle(int radius) {
+        this.radius=radius;
+    }
+    public int getRadius(){
+        return radius;
+    }
+
+    public void setRadius(int radius){
+        this.radius=radius;
+    }
+
+
+    @Override
+    public double calculateArea(){
+        return Math.PI*Math.pow(radius,2);
+    }
+
+    @Override
+    public double calculatePerimeter(){
+        return 2*Math.PI*radius;
+    }
+}
+
+public class Rectangle implements Assignment5.Shapes {
+
+    private int length,breadth;
+
+    public Rectangle(int length,int breadth){
+        this.length=length;
+        this.breadth=breadth;
+    }
+
+    public int getLength(){
+        return length;
+    }
+
+    public void setLength(int length){
+        this.length=length;
+    }
+
+    public int getBreadth(){
+        return breadth;
+    }
+
+    public void setBreadth(int breadth){
+        this.breadth=breadth;
+    }
+
+    @Override
+    public double calculateArea(){
+        return length*breadth;
+    }
+
+    @Override
+    public double calculatePerimeter(){
+        return 2*(length+breadth);
+    }
+}
+
+public class Triangle implements Assignment5.Shapes {
+
+    private int side1,side2,side3,height;
+
+    public Triangle(int side1,int side2,int side3,int height){
+        this.side1=side1;
+        this.side2=side2;
+        this.side3=side3;
+        this.height=height;
+    }
+
+    public int getSide1(){
+        return side1;
+    }
+
+    public void setSide1(int side1){
+        this.side1=side1;
+    }
+
+    public int getSide2(){
+        return side2;
+    }
+
+    public void setSide2(int side1){
+        this.side2=side2;
+    }
+
+    public int getSide3(){
+        return side3;
+    }
+
+    public void setSide3(int side3){
+        this.side3=side3;
+    }
+
+    public int getHeight(){
+        return height;
+    }
+
+    public void setHeight(int height){
+        this.height=height;
+    }
+
+    @Override
+    public double calculatePerimeter(){
+        return side1+side2+side3;
+    }
+
+    @Override
+    public double calculateArea(){
+        return 0.5*side1*height;
+    }
+
+}
+
+
