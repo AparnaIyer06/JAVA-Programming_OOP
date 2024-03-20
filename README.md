@@ -946,4 +946,208 @@ public class Triangle implements Assignment5.Shapes {
 
 }
 
+//Assignment 7
+
+//Part1
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+class RationalNumber {
+    private int numerator;
+    private int denominator;
+
+    public RationalNumber(int numerator, int denominator) {
+        if (denominator == 0) {
+            throw new IllegalArgumentException("Denominator cannot be zero.");
+        }
+        this.numerator = numerator;
+        this.denominator = denominator;
+        simplify();
+    }
+
+    private int gcd(int a, int b) {
+        if (b == 0)
+            return a;
+        return gcd(b, a % b);
+    }
+
+    private void simplify() {
+        int gcd = gcd(Math.abs(numerator), Math.abs(denominator));
+        numerator /= gcd;
+        denominator /= gcd;
+        if (denominator < 0) {
+            numerator *= -1;
+            denominator *= -1;
+        }
+    }
+
+    public RationalNumber add(RationalNumber other) {
+        int num = numerator * other.denominator + other.numerator * denominator;
+        int den = denominator * other.denominator;
+        return new RationalNumber(num, den);
+    }
+
+    public RationalNumber subtract(RationalNumber other) {
+        int num = numerator * other.denominator - other.numerator * denominator;
+        int den = denominator * other.denominator;
+        return new RationalNumber(num, den);
+    }
+
+    public RationalNumber multiply(RationalNumber other) {
+        int num = numerator * other.numerator;
+        int den = denominator * other.denominator;
+        return new RationalNumber(num, den);
+    }
+
+    public RationalNumber divide(RationalNumber other) {
+        if (other.numerator == 0) {
+            throw new ArithmeticException("Cannot divide by zero.");
+        }
+        int num = numerator * other.denominator;
+        int den = denominator * other.numerator;
+        return new RationalNumber(num, den);
+    }
+
+    public double toDouble() {
+        return (double) numerator / denominator;
+    }
+
+    public RationalNumber abs() {
+        return new RationalNumber(Math.abs(numerator), Math.abs(denominator));
+    }
+
+    public boolean equals(RationalNumber other) {
+        return numerator == other.numerator && denominator == other.denominator;
+    }
+
+    @Override
+    public String toString() {
+        return numerator + "/" + denominator;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        try {
+            Scanner sc=new Scanner(System.in);
+            System.out.println("Enter a for Rational Number 1 (a/b): ");
+            String str1 = sc.next();
+            System.out.println("Enter b for Rational Number 1 (a/b): ");
+            String str2=sc.next();
+            System.out.println("Enter c for Rational Number 2 (c/d): ");
+            String str3=sc.next();
+            System.out.println("Enter d for Rational Number 2 (c/d): ");
+            String str4=sc.next();
+            if (str1.length() != 1||str2.length()!=1) {
+                throw new IllegalArgumentException("Please provide two rational numbers in the format a/b c/d.");
+            }
+            int num1 = Integer.parseInt(str1);
+            int den1 = Integer.parseInt(str2);
+            int num2 = Integer.parseInt(str3);
+            int den2 = Integer.parseInt(str4);
+
+            RationalNumber rational1 = new RationalNumber(num1, den1);
+            RationalNumber rational2 = new RationalNumber(num2, den2);
+
+            System.out.println("Rational Numbers:");
+            System.out.println("1st Number: " + rational1);
+            System.out.println("2nd Number: " + rational2);
+            System.out.println();
+
+            System.out.println("Addition: " + rational1.add(rational2));
+            System.out.println("Subtraction: " + rational1.subtract(rational2));
+            System.out.println("Multiplication: " + rational1.multiply(rational2));
+            System.out.println("Division: " + rational1.divide(rational2));
+            System.out.println("Comparison: " + rational1.equals(rational2));
+            System.out.println("1st Number as Double: " + rational1.toDouble());
+            System.out.println("2nd Number as Double: " + rational2.toDouble());
+            System.out.println("Absolute Value of 1st Number: " + rational1.abs());
+            System.out.println("Absolute Value of 2nd Number: " + rational2.abs());
+        } catch (NumberFormatException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        catch(ArithmeticException e){
+            System.out.println("Error: " + e.getMessage());
+        }
+        catch(IllegalArgumentException e){
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+}
+
+
+
+//Part2
+
+package Assignment_7;//Part 2: Factorial Exception
+//package Assignment_7;
+
+
+class FactorialException extends Exception{
+    FactorialException(String message){ //Constructor
+        super(message);
+
+    }
+}
+public class Assignment7_Part2 {
+    private static int factorial(int n)
+    {
+        int result=1;
+        for(int i=1;i<=n;i++){
+            result*=i;
+        }
+        return result;
+    }
+    public static void main(String[] args) {
+
+        for (String arg : args) {
+            try {
+                int n = Integer.parseInt(arg);
+                if (n < 0 || n > 15)
+                    throw new FactorialException("Value out of range(0 to 15) for " + n);
+                System.out.println("Factorial of " + n + " is "+factorial(n));
+            } catch (FactorialException fe) {
+                System.out.println("Number is out of the range 0 to 15.");
+                System.out.println(fe.getMessage());
+            } catch (NumberFormatException ne) {
+                ne.printStackTrace();
+                System.out.println("Number entered is of invalid format.");
+            }
+        }
+    }
+}
+
+
+//Part3
+
+import java.util.*;
+
+public class Assignment7_Part3 {
+    public static void main(String[] args){
+        int count=0;
+            try{
+                System.out.println("Enter a string: ");
+                Scanner sc=new Scanner(System.in);
+                String input=sc.next();
+                if (!input.equals("India")) {
+                    throw new NOMATCHEXCP(new Throwable().getStackTrace()[0].getLineNumber(), input);
+                } else {
+                    System.out.println("Input string matches 'India'.");
+                }
+            }
+            catch(NOMATCHEXCP ne){
+                System.out.println(ne.getMessage());
+            }
+
+        }
+    }
+
+class NOMATCHEXCP extends Exception{
+
+    public NOMATCHEXCP(int line_number, String input_string){ //Constructor
+
+        super("Error on line "+line_number+": Input String "+input_string+" does not match 'India'.");
+    }
+}
 
